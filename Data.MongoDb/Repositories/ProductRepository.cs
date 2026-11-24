@@ -29,7 +29,7 @@ namespace Data.MongoDb.Repositories
         {
             var productEntity = _mapper.Map<ProductDto>(product);
             await _products.InsertOneAsync(productEntity, new InsertOneOptions { BypassDocumentValidation = false }, cancellationToken);
- 
+
             return _mapper.Map<Product>(productEntity);
         }
 

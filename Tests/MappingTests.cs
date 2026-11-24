@@ -3,6 +3,7 @@ using Bogus;
 using Common.Models;
 using MongoDB.Bson;
 using Tests.Faker;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tests
 {
@@ -21,7 +22,7 @@ namespace Tests
         public void DataMongo_MappingToDto_CorrectMapping()
         {
             var profile = new Data.MongoDb.Mapper.AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile), NullLoggerFactory.Instance);
             var mapper = new Mapper(configuration);
 
             var product = GetProductWithMongo();
@@ -29,7 +30,7 @@ namespace Tests
             var result = mapper.Map<Data.MongoDb.Entities.ProductDto>(product);
 
             Assert.That(result?.Id, Is.Not.Null);
-            Assert.That(result.Id.ToString(), Is.EqualTo(product.Id));
+            Assert.That(result!.Id.ToString(), Is.EqualTo(product.Id));
             Assert.That(result.Name, Is.EqualTo(product.Name));
             Assert.That(result.Price, Is.EqualTo(product.Price));
             Assert.That(result.Quantity, Is.EqualTo(product.Quantity));
@@ -43,7 +44,7 @@ namespace Tests
         public void DataMongo_MappingFromDto_CorrectMapping()
         {
             var profile = new Data.MongoDb.Mapper.AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile), NullLoggerFactory.Instance);
             var mapper = new Mapper(configuration);
 
             var product = GetProductDtoWithMongo();
@@ -51,7 +52,7 @@ namespace Tests
             var result = mapper.Map<Product>(product);
 
             Assert.That(result?.Id, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(product.Id.ToString()));
+            Assert.That(result!.Id, Is.EqualTo(product.Id.ToString()));
             Assert.That(result.Name, Is.EqualTo(product.Name));
             Assert.That(result.Price, Is.EqualTo(product.Price));
             Assert.That(result.Quantity, Is.EqualTo(product.Quantity));
@@ -65,7 +66,7 @@ namespace Tests
         public void DataSql_MappingToDto_CorrectMapping()
         {
             var profile = new Data.Sql.Mapper.AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile), NullLoggerFactory.Instance);
             var mapper = new Mapper(configuration);
 
             var product = GetProductWithSql();
@@ -73,7 +74,7 @@ namespace Tests
             var result = mapper.Map<Data.Sql.Entities.ProductDto>(product);
 
             Assert.That(result?.Id, Is.Not.Null);
-            Assert.That(result.Id.ToString(), Is.EqualTo(product.Id));
+            Assert.That(result!.Id.ToString(), Is.EqualTo(product.Id));
             Assert.That(result.Name, Is.EqualTo(product.Name));
             Assert.That(result.Price, Is.EqualTo(product.Price));
             Assert.That(result.Quantity, Is.EqualTo(product.Quantity));
@@ -87,7 +88,7 @@ namespace Tests
         public void DataSql_MappingFromDto_CorrectMapping()
         {
             var profile = new Data.Sql.Mapper.AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile), NullLoggerFactory.Instance);
             var mapper = new Mapper(configuration);
 
             var product = GetProductDtoWithSql();
@@ -95,7 +96,7 @@ namespace Tests
             var result = mapper.Map<Product>(product);
 
             Assert.That(result?.Id, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(product.Id.ToString()));
+            Assert.That(result!.Id, Is.EqualTo(product.Id.ToString()));
             Assert.That(result.Name, Is.EqualTo(product.Name));
             Assert.That(result.Price, Is.EqualTo(product.Price));
             Assert.That(result.Quantity, Is.EqualTo(product.Quantity));

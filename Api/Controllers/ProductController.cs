@@ -48,7 +48,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody]Product product, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddAsync([FromBody] Product product, CancellationToken cancellationToken)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync([FromBody]Product product, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateAsync([FromBody] Product product, CancellationToken cancellationToken)
         {
             try
             {

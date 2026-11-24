@@ -1,9 +1,8 @@
 using Api.Controllers;
 using AutoMapper;
 using Data.MongoDb.Configurations;
-using Data.MongoDb.Repositories;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
 namespace Tests
@@ -20,7 +19,7 @@ namespace Tests
         public void Test1()
         {
             var profile = new Data.MongoDb.Mapper.AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile), NullLoggerFactory.Instance);
             var mapper = new Mapper(configuration);
 
             var logger = Mock.Of<ILogger<ProductController>>();

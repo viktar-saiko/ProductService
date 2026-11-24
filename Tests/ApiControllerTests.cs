@@ -1,11 +1,11 @@
 ﻿using Api.Controllers;
 using AutoMapper;
+using Bogus;
 using Common.Interfaces;
 using Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Bogus;
 using Tests.Faker;
 
 namespace Tests

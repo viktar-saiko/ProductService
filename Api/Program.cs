@@ -1,7 +1,7 @@
 using Common.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Data.MongoDb.Extensions;
 using Common.Middleware;
+using Data.MongoDb.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api
 {
@@ -12,7 +12,7 @@ namespace Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(cfg => cfg.AllowNullCollections = true /* ??? */, AppDomain.CurrentDomain.GetAssemblies());
 
             // Switcher between MongoDB and PostgreSQL
             bool useMongoDb = builder.Configuration.GetValue<bool>("UseMongoDB");
@@ -49,18 +49,18 @@ namespace Api
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(t =>
-            {
-                t.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ProductServiceApi", Version = "v1" });
-            });
+            //builder.Services.AddSwaggerGen(t =>
+            //{
+            //    t.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ProductServiceApi", Version = "v1" });
+            //});
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                //app.UseSwagger();
+                //app.UseSwaggerUI();
             }
 
             // Configure the HTTP request pipeline.
